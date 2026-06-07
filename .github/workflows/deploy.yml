@@ -50,7 +50,7 @@ jobs:
       - name: Ensure remote target exists
         env:
           SSH_HOST: ${{ secrets.SSH_HOST }}
-          SSH_PATH: ${{ secrets.SSH_PATH }}
+          SSH_PATH: ${{ secrets.SSH_PATH || '.' }}
           SSH_USER: ${{ secrets.SSH_USER }}
         run: |
           set -eu
@@ -59,7 +59,7 @@ jobs:
       - name: Upload static site
         env:
           SSH_HOST: ${{ secrets.SSH_HOST }}
-          SSH_PATH: ${{ secrets.SSH_PATH }}
+          SSH_PATH: ${{ secrets.SSH_PATH || '.' }}
           SSH_USER: ${{ secrets.SSH_USER }}
         run: |
           set -eu
