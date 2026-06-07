@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>RSS Viewer | koodi0002</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="page">
+      <header class="page-header">
+        <div>
+          <p class="eyebrow">RSS viewer</p>
+          <h1>Feed entries as cards</h1>
+          <p class="lead">
+            The viewer reads its configuration from URL parameters so the same page can later be
+            embedded in an iframe without changing code.
+          </p>
+        </div>
+        <nav class="nav-links" aria-label="Primary">
+          <a class="button-link button-link-secondary" href="index.html">Home</a>
+          <a class="button-link" href="config.html">Open configurator</a>
+        </nav>
+      </header>
+
+      <section class="content-grid">
+        <section class="panel settings-summary">
+          <h2>Current settings</h2>
+          <div id="settingsSummary" class="text-muted"></div>
+        </section>
+
+        <section class="panel query-help">
+          <h2>Query parameter help</h2>
+          <p>
+            Use <code>feed</code>, <code>limit</code>, <code>showDate</code>, and
+            <code>showDescription</code> in the URL. Example:
+          </p>
+          <p class="code-block" id="queryExample"></p>
+          <p class="text-muted">
+            Tip: once deployed, this page can be embedded with an iframe that points to the
+            configured URL.
+          </p>
+        </section>
+      </section>
+
+      <section id="status" class="status status-loading" aria-live="polite">
+        <p>Loading feed…</p>
+      </section>
+
+      <section class="panel">
+        <h2 id="feedHeading">Feed entries</h2>
+        <div id="feedMeta" class="meta-line"></div>
+        <div id="feedItems" class="feed-grid"></div>
+        <p class="footer-note text-muted">
+          If direct browser fetching is blocked by CORS, the page automatically tries the optional
+          same-origin <code>rss-proxy.php</code> fallback.
+        </p>
+      </section>
+    </main>
+
+    <script src="rss.js"></script>
+  </body>
+</html>

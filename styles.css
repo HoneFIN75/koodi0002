@@ -4,32 +4,98 @@
   line-height: 1.5;
   color: #172033;
   background: #eef2ff;
+  --page-width: 1120px;
+  --surface: #ffffff;
+  --surface-muted: #f8fafc;
+  --border: #dbe4ff;
+  --border-strong: #c7d2fe;
+  --text-muted: #475569;
+  --accent: #4f46e5;
+  --accent-dark: #312e81;
+  --success-bg: #ecfdf3;
+  --success-text: #166534;
+  --warning-bg: #fff7ed;
+  --warning-text: #9a3412;
+  --error-bg: #fef2f2;
+  --error-text: #b91c1c;
 }
 
 * {
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   min-height: 100vh;
   background: linear-gradient(180deg, #eef2ff 0%, #f8fafc 100%);
+  color: #172033;
+}
+
+a {
+  color: inherit;
+}
+
+code,
+textarea,
+input,
+button {
+  font: inherit;
 }
 
 .page {
-  display: grid;
-  place-items: center;
-  min-height: 100vh;
-  padding: 24px;
+  width: min(100%, var(--page-width));
+  margin: 0 auto;
+  padding: 32px 20px 64px;
 }
 
-.card {
-  width: min(100%, 720px);
-  padding: 32px;
-  border: 1px solid #dbe4ff;
+.page-home {
+  display: grid;
+  align-content: center;
+  min-height: 100vh;
+}
+
+.card,
+.panel,
+.feed-card {
+  border: 1px solid var(--border);
   border-radius: 20px;
-  background: #ffffff;
+  background: var(--surface);
   box-shadow: 0 20px 45px rgba(15, 23, 42, 0.08);
+}
+
+.card,
+.panel {
+  padding: 28px;
+}
+
+.hero-card {
+  width: 100%;
+}
+
+.page-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-start;
+  margin-bottom: 24px;
+}
+
+.page-header h1,
+.page-header p {
+  margin-bottom: 0;
+}
+
+.nav-links,
+.hero-actions,
+.form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
 .eyebrow {
@@ -38,12 +104,14 @@ body {
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #4f46e5;
+  color: var(--accent);
 }
 
 h1,
 h2,
-p {
+h3,
+p,
+ul {
   margin-top: 0;
 }
 
@@ -53,32 +121,263 @@ h1 {
   line-height: 1.1;
 }
 
+h2 {
+  margin-bottom: 12px;
+  font-size: 1.25rem;
+}
+
+h3 {
+  margin-bottom: 10px;
+  font-size: 1.05rem;
+}
+
+.lead,
+.text-muted,
+.field-help,
+.meta-line {
+  color: var(--text-muted);
+}
+
 .lead {
   margin-bottom: 24px;
   font-size: 1.05rem;
-  color: #334155;
 }
 
-.deploy-info {
+.button-link,
+button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 10px 16px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #ffffff;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.button-link:hover,
+button:hover {
+  background: #4338ca;
+}
+
+.button-link-secondary,
+button.secondary {
+  border-color: var(--border-strong);
+  background: #ffffff;
+  color: var(--accent-dark);
+}
+
+.button-link-secondary:hover,
+button.secondary:hover {
+  background: #eef2ff;
+}
+
+.info-grid,
+.content-grid,
+.form-grid,
+.feed-grid {
+  display: grid;
+  gap: 20px;
+}
+
+.info-grid,
+.content-grid {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.form-grid {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.feed-grid {
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  align-items: start;
+}
+
+.panel + .panel,
+.panel + .card,
+.card + .panel,
+.card + .card {
+  margin-top: 24px;
+}
+
+.deploy-info,
+.status,
+.settings-summary,
+.query-help,
+.generated-output {
   padding: 20px;
   border-radius: 16px;
-  background: #f8fafc;
+  background: var(--surface-muted);
 }
 
-.deploy-info h2 {
-  margin-bottom: 12px;
-  font-size: 1.1rem;
+.status {
+  border: 1px solid var(--border);
 }
 
-.deploy-info p:last-child {
+.status-loading {
+  border-color: var(--border-strong);
+}
+
+.status-success {
+  border-color: #bbf7d0;
+  background: var(--success-bg);
+  color: var(--success-text);
+}
+
+.status-warning {
+  border-color: #fed7aa;
+  background: var(--warning-bg);
+  color: var(--warning-text);
+}
+
+.status-error {
+  border-color: #fecaca;
+  background: var(--error-bg);
+  color: var(--error-text);
+}
+
+.status p:last-child,
+.deploy-info p:last-child,
+.generated-output p:last-child,
+.query-help p:last-child,
+.settings-summary p:last-child {
   margin-bottom: 0;
 }
 
-.marker {
-  display: inline-block;
+.marker,
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   padding: 4px 10px;
   border-radius: 999px;
   background: #e0e7ff;
-  color: #312e81;
+  color: var(--accent-dark);
   font-weight: 700;
+}
+
+.tag {
+  font-size: 0.85rem;
+}
+
+.bullet-list,
+.inline-list {
+  padding-left: 20px;
+  color: var(--text-muted);
+}
+
+.inline-list li + li {
+  margin-top: 6px;
+}
+
+.code-block,
+.generated-output textarea,
+.generated-output input[readonly] {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: #f8fafc;
+  color: #0f172a;
+  overflow-x: auto;
+}
+
+.generated-output textarea {
+  min-height: 96px;
+  resize: vertical;
+}
+
+label {
+  display: grid;
+  gap: 8px;
+  font-weight: 600;
+}
+
+input[type="url"],
+input[type="number"] {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid var(--border-strong);
+  border-radius: 12px;
+  background: #ffffff;
+}
+
+input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+}
+
+.checkbox-field {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-top: 28px;
+}
+
+.checkbox-field label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+}
+
+.feed-card {
+  padding: 24px;
+}
+
+.feed-card h3 {
+  line-height: 1.25;
+}
+
+.feed-card a {
+  color: var(--accent-dark);
+  text-decoration: none;
+}
+
+.feed-card a:hover {
+  text-decoration: underline;
+}
+
+.feed-card p:last-child {
+  margin-bottom: 0;
+}
+
+.feed-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.description {
+  color: #334155;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+
+.footer-note {
+  margin-top: 24px;
+}
+
+@media (max-width: 720px) {
+  .page {
+    padding: 24px 16px 40px;
+  }
+
+  .card,
+  .panel,
+  .feed-card {
+    padding: 20px;
+  }
+
+  .checkbox-field {
+    padding-top: 0;
+  }
 }
