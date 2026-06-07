@@ -36,7 +36,7 @@
 
   function handleSubmit(event) {
     event.preventDefault();
-    window.location.href = viewerUrlInput.value;
+    window.location.href = buildViewerUrl().toString();
   }
 
   function handleReset() {
