@@ -8,10 +8,15 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
 
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+
+      - name: Install rsync
+        run: sudo apt-get update && sudo apt-get install -y rsync
 
       - name: Prepare SSH access
         env:
@@ -32,11 +37,13 @@ jobs:
           rm -rf /tmp/deploy-site
           mkdir -p /tmp/deploy-site
           cp index.html styles.css /tmp/deploy-site/
-          python - <<'PY'
+          python3 <<PY
           import os
           from pathlib import Path
           path = Path("/tmp/deploy-site/index.html")
-          path.write_text(path.read_text().replace("__DEPLOYMENT_INFO__", os.environ["DEPLOY_INFO"]))
+          path.write_text(
+              path.read_text().replace("__DEPLOYMENT_INFO__", os.environ["DEPLOY_INFO"])
+          )
           PY
 
       - name: Ensure remote target exists
