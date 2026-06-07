@@ -34,7 +34,8 @@ Configure these repository secrets before deploying:
 - `SSH_KEY` - private SSH key allowed to connect to the server
 - `SSH_HOST` - server hostname or IP
 - `SSH_USER` - SSH username
-- `SSH_PATH` - target directory on the server where the site should be published
+- `SSH_PATH` (optional) - target directory on the server where the site should be published. If
+  omitted, deployment uses the SSH user's home directory (`.`).
 
 ## How deployment works
 
