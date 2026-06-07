@@ -1,0 +1,58 @@
+name: Deploy static site
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Prepare SSH access
+        env:
+          SSH_KEY: ${{ secrets.SSH_KEY }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+        run: |
+          set -eu
+          mkdir -p ~/.ssh
+          printf '%s\n' "$SSH_KEY" | tr -d '\r' > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -H "$SSH_HOST" >> ~/.ssh/known_hosts
+
+      - name: Prepare deployable site files
+        env:
+          DEPLOY_INFO: "${{ github.repository }} | run #${{ github.run_number }} | ${{ github.sha }} | ${{ github.event.head_commit.timestamp }}"
+        run: |
+          set -eu
+          rm -rf /tmp/deploy-site
+          mkdir -p /tmp/deploy-site
+          cp index.html styles.css /tmp/deploy-site/
+          python - <<'PY'
+          import os
+          from pathlib import Path
+          path = Path("/tmp/deploy-site/index.html")
+          path.write_text(path.read_text().replace("__DEPLOYMENT_INFO__", os.environ["DEPLOY_INFO"]))
+          PY
+
+      - name: Ensure remote target exists
+        env:
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_PATH: ${{ secrets.SSH_PATH }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+        run: |
+          set -eu
+          ssh "$SSH_USER@$SSH_HOST" "mkdir -p '$SSH_PATH'"
+
+      - name: Upload static site
+        env:
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_PATH: ${{ secrets.SSH_PATH }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+        run: |
+          set -eu
+          rsync --archive --compress --delete /tmp/deploy-site/ "$SSH_USER@$SSH_HOST:$SSH_PATH/"
