@@ -3,18 +3,48 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>koodi0002 deployment test 3</title>
+    <title>koodi0002 RSS MVP</title>
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
-    <main class="page">
-      <section class="card">
-        <p class="eyebrow">GitHub Actions deployment test</p>
-        <h1>Static site deployed from HoneFIN75/koodi0002</h1>
+    <main class="page page-home">
+      <section class="card hero-card">
+        <p class="eyebrow">Static deployment + RSS MVP</p>
+        <h1>Deployable RSS viewer for HoneFIN75/koodi0002</h1>
         <p class="lead">
-          This minimal page exists to verify that pushes to <code>main</code> deploy successfully
-          from GitHub Actions to the target web server.
+          This repository now contains a small plain HTML, CSS, and JavaScript RSS MVP that can be
+          deployed with the existing GitHub Actions SSH workflow and extended into an embeddable
+          widget later.
         </p>
+
+        <div class="hero-actions">
+          <a class="button-link" href="rss.html">Open RSS viewer</a>
+          <a class="button-link button-link-secondary" href="config.html">Open configurator</a>
+        </div>
+
+        <div class="info-grid">
+          <section class="panel">
+            <h2>Available pages</h2>
+            <ul class="bullet-list">
+              <li><strong>Home:</strong> <code>index.html</code></li>
+              <li><strong>Viewer:</strong> <code>rss.html</code></li>
+              <li><strong>Configurator:</strong> <code>config.html</code></li>
+              <li><strong>Fallback proxy:</strong> <code>rss-proxy.php</code></li>
+            </ul>
+          </section>
+
+          <section class="panel">
+            <h2>Default demo feed</h2>
+            <p>
+              The MVP is pre-configured for the provided 112.fi RSS source and supports URL query
+              parameters for later embedding.
+            </p>
+            <p class="code-block">
+              rss.html?feed=https%3A%2F%2F112.fi%2Fstaattiset-rss-syotteet%2F-%2Fasset_publisher%2Fo7don5OvWPDS%2Frss&amp;limit=6&amp;showDate=1&amp;showDescription=1
+            </p>
+          </section>
+        </div>
+
         <div class="deploy-info">
           <h2>Deployment info</h2>
           <p><strong>Repository:</strong> <code>HoneFIN75/koodi0002</code></p>

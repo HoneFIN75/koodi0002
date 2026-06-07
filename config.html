@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>RSS Configurator | koodi0002</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="page">
+      <header class="page-header">
+        <div>
+          <p class="eyebrow">RSS configurator</p>
+          <h1>Build a viewer URL without editing code</h1>
+          <p class="lead">
+            Set the feed URL and basic display options here, then open the generated viewer page or
+            copy its URL for later embedding.
+          </p>
+        </div>
+        <nav class="nav-links" aria-label="Primary">
+          <a class="button-link button-link-secondary" href="index.html">Home</a>
+          <a class="button-link" href="rss.html">Open default viewer</a>
+        </nav>
+      </header>
+
+      <section class="card">
+        <form id="configForm">
+          <div class="form-grid">
+            <label for="feedUrl">
+              Feed URL
+              <input
+                id="feedUrl"
+                name="feed"
+                type="url"
+                required
+                placeholder="https://example.com/feed.xml">
+              <span class="field-help">The viewer uses this as the source feed.</span>
+            </label>
+
+            <label for="itemLimit">
+              Item limit
+              <input id="itemLimit" name="limit" type="number" min="1" max="20" step="1" value="6">
+              <span class="field-help">Choose how many cards to show.</span>
+            </label>
+
+            <div class="checkbox-field">
+              <label for="showDate">
+                <input id="showDate" name="showDate" type="checkbox" checked>
+                Show publish date
+              </label>
+            </div>
+
+            <div class="checkbox-field">
+              <label for="showDescription">
+                <input id="showDescription" name="showDescription" type="checkbox" checked>
+                Show description
+              </label>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit">Open configured viewer</button>
+            <button type="button" class="secondary" id="resetButton">Reset defaults</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="generated-output">
+        <h2>Generated viewer URL</h2>
+        <input id="viewerUrl" type="text" readonly>
+        <p class="text-muted">
+          This URL contains the same query parameters used by the viewer page.
+        </p>
+      </section>
+
+      <section class="generated-output">
+        <h2>Example iframe embed</h2>
+        <textarea id="iframeSnippet" readonly></textarea>
+        <p class="text-muted">
+          Full embed tooling is not part of this MVP yet, but this snippet shows the intended
+          direction.
+        </p>
+      </section>
+    </main>
+
+    <script src="config.js"></script>
+  </body>
+</html>
